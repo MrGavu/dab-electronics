@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAB Electronics – Smart Security</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;800&family=Roboto+Condensed:wght@900&family=Mukta+Malar:wght@500;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2395d3;
+      --green: #a6dc4c;
+      --gray-text: #898989;
+      --nav-inactive: #a7a7a7;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE TEXTURE BACKGROUND ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── NAVBAR ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      height: 114px;
+      display: flex;
+      align-items: center;
+      padding: 0 99px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    }
+
+    nav {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo img {
+      height: 56px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 42px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 22px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      color: var(--nav-inactive);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links a.active { font-weight: 800; color: var(--blue); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 3px;
+      background: var(--blue);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* Mobile nav drawer */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 100px 30px 40px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--nav-inactive);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-nav a.active { font-weight: 800; color: var(--blue); }
+    .mobile-nav a:hover { color: var(--blue); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 114px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 80px 99px 80px 106px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 620px;
+    }
+
+    .hero-heading {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(42px, 5.5vw, 70px);
+      line-height: 1.07;
+      margin-bottom: 24px;
+    }
+
+    .hero-heading .blue  { color: var(--blue); }
+    .hero-heading .green { color: var(--green); }
+
+    .hero-sub {
+      font-size: clamp(16px, 1.8vw, 22px);
+      color: var(--gray-text);
+      line-height: 1.55;
+      margin-bottom: 44px;
+      max-width: 560px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      font-family: 'Mukta Malar', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      padding: 17px 28px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #1a7fb8; transform: translateY(-1px); }
+
+    .btn-secondary {
+      color: var(--green);
+      font-family: 'Mukta Malar', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      padding: 17px 28px;
+      border-radius: 12px;
+      border: 2px solid var(--green);
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-secondary:hover { background: var(--green); color: #fff; transform: translateY(-1px); }
+
+    /* Hero images */
+    .hero-images {
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 55%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-img-cameras {
+      position: absolute;
+      bottom: -40px;
+      left: 0;
+      width: 75%;
+      transform: rotate(15.83deg);
+      transform-origin: bottom left;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15));
+    }
+
+    .hero-img-network {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 80%;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,0.1));
+    }
+
+    /* ─── STATS / TRUST BAR ─── */
+    .trust-bar {
+      position: relative;
+      z-index: 2;
+      background: var(--white);
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      padding: 48px 99px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .trust-item {
+      text-align: center;
+    }
+
+    .trust-item .num {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 48px;
+      color: var(--blue);
+      line-height: 1;
+    }
+
+    .trust-item .label {
+      font-size: 16px;
+      color: var(--gray-text);
+      margin-top: 6px;
+    }
+
+    /* ─── SERVICES ─── */
+    .services {
+      padding: 96px 99px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-label {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .section-heading {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(32px, 4vw, 52px);
+      color: #1a1a1a;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      color: var(--gray-text);
+      font-size: 18px;
+      line-height: 1.6;
+      max-width: 540px;
+      margin-bottom: 56px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .service-card {
+      background: #f8fbff;
+      border: 1px solid #e8f4fd;
+      border-radius: 16px;
+      padding: 36px 28px;
+      transition: box-shadow 0.25s, transform 0.2s;
+    }
+
+    .service-card:hover {
+      box-shadow: 0 12px 40px rgba(35,149,211,0.12);
+      transform: translateY(-4px);
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--blue);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .service-icon svg { color: white; }
+
+    .service-card h3 {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: 15px;
+      color: var(--gray-text);
+      line-height: 1.65;
+    }
+
+    /* ─── WHY CHOOSE US ─── */
+    .why {
+      padding: 96px 99px;
+      background: linear-gradient(135deg, #f0f9ff 0%, #f8fff0 100%);
+      position: relative;
+      z-index: 2;
+    }
+
+    .why-inner {
+      display: flex;
+      gap: 80px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .why-text { flex: 1; min-width: 280px; }
+
+    .why-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .why-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .why-bullet {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .why-bullet svg { color: white; }
+
+    .why-item-text h4 {
+      font-weight: 800;
+      font-size: 17px;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+    .why-item-text p { font-size: 15px; color: var(--gray-text); line-height: 1.6; }
+
+    .why-visual { flex: 1; min-width: 280px; position: relative; }
+
+    .why-card-big {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(35,149,211,0.12);
+      border: 1px solid #e8f4fd;
+    }
+
+    .why-card-big .big-num {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 80px;
+      color: var(--blue);
+      line-height: 1;
+    }
+
+    .why-card-big .big-label {
+      font-size: 18px;
+      color: #1a1a1a;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+
+    .why-card-big .big-sub {
+      font-size: 15px;
+      color: var(--gray-text);
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+
+    .floating-badge {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--green);
+      color: white;
+      border-radius: 16px;
+      padding: 18px 24px;
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: 0 8px 24px rgba(166,220,76,0.35);
+    }
+
+    /* ─── CONTACT CTA ─── */
+    .cta-banner {
+      margin: 80px 99px;
+      background: linear-gradient(100deg, var(--blue) 0%, #1a6fa0 100%);
+      border-radius: 24px;
+      padding: 72px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .cta-banner::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 40%;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .cta-text h2 {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 3.5vw, 46px);
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .cta-text p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+      max-width: 460px;
+    }
+
+    .cta-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn-white {
+      background: white;
+      color: var(--blue);
+      font-family: 'Mukta Malar', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+
+    .btn-outline-white {
+      background: transparent;
+      color: white;
+      font-family: 'Mukta Malar', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.6);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #0d1117;
+      color: rgba(255,255,255,0.7);
+      padding: 64px 99px 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 48px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand .logo-text {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 28px;
+      color: white;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-weight: 800;
+      font-size: 15px;
+      color: white;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--blue); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      header { padding: 0 48px; }
+      .hero { padding: 60px 48px; }
+      .hero-images { width: 48%; right: 0; }
+      .trust-bar, .services, .why { padding-left: 48px; padding-right: 48px; }
+      .cta-banner { margin: 60px 48px; }
+      footer { padding: 56px 48px 32px; }
+    }
+
+    @media (max-width: 768px) {
+      header { height: 80px; padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero {
+        flex-direction: column;
+        padding: 48px 24px 260px;
+        min-height: 100svh;
+        align-items: flex-start;
+      }
+
+      .hero-content { max-width: 100%; }
+
+      .hero-images {
+        position: absolute;
+        right: -10px;
+        bottom: -20px;
+        top: auto;
+        transform: none;
+        width: 100%;
+        height: 280px;
+      }
+
+      .hero-img-cameras {
+        width: 60%;
+        bottom: 0;
+        left: -10px;
+        transform: rotate(10deg);
+      }
+
+      .hero-img-network {
+        width: 55%;
+        top: 0;
+        right: 0;
+      }
+
+      .trust-bar { padding: 40px 24px; }
+      .trust-item .num { font-size: 36px; }
+
+      .services { padding: 64px 24px; }
+      .services-grid { grid-template-columns: 1fr; }
+
+      .why { padding: 64px 24px; }
+      .why-inner { flex-direction: column; gap: 48px; }
+
+      .cta-banner {
+        margin: 48px 24px;
+        padding: 48px 28px;
+        flex-direction: column;
+        text-align: center;
+      }
+      .cta-actions { justify-content: center; }
+
+      footer { padding: 48px 24px 32px; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 8px; }
+
+      .floating-badge { position: relative; bottom: auto; right: auto; margin-top: 20px; display: inline-block; }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 36px 20px 240px; }
+      .hero-heading { font-size: 36px; }
+      .hero-cta { flex-direction: column; align-items: flex-start; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .trust-bar { padding: 32px 20px; }
+      .services { padding: 52px 20px; }
+      .why { padding: 52px 20px; }
+      .cta-banner { margin: 40px 20px; padding: 40px 20px; }
+      footer { padding: 40px 20px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header>
+  <nav>
+    <a href="#" class="logo" aria-label="DAB Electronics home">
+      <img src="https://www.figma.com/api/mcp/asset/6f76be16-5694-414f-b5f5-6386a5dffd89" alt="DAB Electronics Logo" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#services">Our Services</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#" class="active" onclick="closeNav()">Home</a>
+  <a href="#about" onclick="closeNav()">About Us</a>
+  <a href="#services" onclick="closeNav()">Our Services</a>
+  <a href="#contact" onclick="closeNav()">Contact Us</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="hero-heading">
+      <span class="blue">SMART SECURITY</span><br />
+      <span class="blue">BUILT </span><span class="green">FOR MODERN</span><br />
+      <span class="green">BUSINESSES</span>
+    </h1>
+    <p class="hero-sub">
+      Advanced CCTV, access control, networking and integrated technology
+      solutions designed to protect and power your operations.
+    </p>
+    <div class="hero-cta">
+      <a href="#services" class="btn-primary">Explore Solutions</a>
+      <a href="#contact" class="btn-secondary">Contact Us</a>
+    </div>
+  </div>
+
+  <div class="hero-images" aria-hidden="true">
+    <img class="hero-img-cameras"
+         src="https://www.figma.com/api/mcp/asset/285798d3-d556-4260-91ea-fb61006fa3ec"
+         alt="Security cameras" />
+    <img class="hero-img-network"
+         src="https://www.figma.com/api/mcp/asset/86166947-bb74-4e8c-9e50-e2506b761c16"
+         alt="Network infrastructure" />
+  </div>
+</section>
+
+<!-- ─── TRUST BAR ─── -->
+<section class="trust-bar" id="about">
+  <div class="trust-item">
+    <div class="num">500+</div>
+    <div class="label">Projects Completed</div>
+  </div>
+  <div class="trust-item">
+    <div class="num">12+</div>
+    <div class="label">Years of Experience</div>
+  </div>
+  <div class="trust-item">
+    <div class="num">98%</div>
+    <div class="label">Client Satisfaction</div>
+  </div>
+  <div class="trust-item">
+    <div class="num">24/7</div>
+    <div class="label">Support Available</div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section class="services" id="services">
+  <p class="section-label">What We Offer</p>
+  <h2 class="section-heading">Integrated Technology Solutions</h2>
+  <p class="section-sub">
+    From surveillance to smart networking, we deliver end-to-end systems tailored for your business security needs.
+  </p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+        </svg>
+      </div>
+      <h3>CCTV Surveillance</h3>
+      <p>High-definition camera systems with remote monitoring, night vision, and AI-powered motion detection for 24/7 protection.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+      </div>
+      <h3>Access Control</h3>
+      <p>Biometric, card-based, and smart lock systems to manage and restrict entry, keeping your premises secure at all times.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+        </svg>
+      </div>
+      <h3>Network Infrastructure</h3>
+      <p>Structured cabling, Wi-Fi deployment, and enterprise networking solutions that keep your business connected and fast.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      </div>
+      <h3>IT Support & Maintenance</h3>
+      <p>Proactive maintenance, remote support, and on-site servicing to ensure your systems run without interruption.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+        </svg>
+      </div>
+      <h3>Cloud & Storage Solutions</h3>
+      <p>Secure cloud-based video storage and data management systems with scalable capacity for growing businesses.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      </div>
+      <h3>Smart Automation</h3>
+      <p>Integrate security, lighting, and environmental controls into one intelligent platform for smarter operations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY US ─── -->
+<section class="why">
+  <div class="why-inner">
+    <div class="why-text">
+      <p class="section-label">Why Choose DAB</p>
+      <h2 class="section-heading">Technology You Can<br/>Trust & Rely On</h2>
+      <p class="section-sub" style="margin-bottom: 0;">We combine cutting-edge technology with hands-on expertise to deliver security solutions that truly work for your business.</p>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-bullet">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div class="why-item-text">
+            <h4>Expert Installation Team</h4>
+            <p>Certified technicians with years of hands-on field experience across diverse industries.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-bullet">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div class="why-item-text">
+            <h4>Tailored Solutions</h4>
+            <p>Every system is designed around your specific needs — no cookie-cutter packages.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-bullet">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div class="why-item-text">
+            <h4>Ongoing Support</h4>
+            <p>Round-the-clock monitoring and responsive technical support to keep you protected.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-visual">
+      <div class="why-card-big">
+        <div class="big-num">500+</div>
+        <div class="big-label">Successful Deployments</div>
+        <div class="big-sub">Serving businesses across retail, hospitality, healthcare, and corporate sectors throughout Ghana and beyond.</div>
+      </div>
+      <div class="floating-badge">⭐ Trusted Partner Since 2012</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA BANNER ─── -->
+<section class="cta-banner" id="contact">
+  <div class="cta-text">
+    <h2>Ready to Secure Your Business?</h2>
+    <p>Get a free consultation and custom security assessment from our expert team — no obligation required.</p>
+  </div>
+  <div class="cta-actions">
+    <a href="tel:+233000000000" class="btn-white">Get Free Consultation</a>
+    <a href="mailto:info@dabelectronics.com" class="btn-outline-white">Email Us</a>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo-text">DAB ELECTRONICS</div>
+      <p>Smart security and integrated technology solutions built for modern businesses across Ghana and West Africa.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#services">Our Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">CCTV Surveillance</a></li>
+        <li><a href="#">Access Control</a></li>
+        <li><a href="#">Network Infrastructure</a></li>
+        <li><a href="#">Smart Automation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+233000000000">+233 (0) 000 000 000</a></li>
+        <li><a href="mailto:info@dabelectronics.com">info@dabelectronics.com</a></li>
+        <li><a href="#">Accra, Ghana</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 DAB Electronics. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  });
+
+  function closeNav() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Animate trust bar numbers on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.service-card, .trust-item, .why-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
