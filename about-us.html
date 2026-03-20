@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us – DAB Electronics</title>
+  <link rel="icon" type="image/png" href="dab-favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;800&family=Roboto+Condensed:wght@900&family=Mukta+Malar:wght@500;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2395d3;
+      --blue-dark: #1a6fa0;
+      --blue-deep: #0d4a6e;
+      --green: #a6dc4c;
+      --green-dark: #7aaa2a;
+      --white: #ffffff;
+      --off-white: #f7fafd;
+      --gray: #898989;
+      --nav-inactive: #a7a7a7;
+      --dark: #0a0f1a;
+      --dark2: #111827;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--white);
+      overflow-x: hidden;
+      color: var(--dark);
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* ─── NAVBAR (from index.html) ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      height: 114px;
+      display: flex;
+      align-items: center;
+      padding: 0 99px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    }
+
+    nav {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo img {
+      height: 56px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 42px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 22px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      color: var(--nav-inactive);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links a.active { font-weight: 800; color: var(--blue); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 3px;
+      background: var(--blue);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* Mobile nav drawer */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 100px 30px 40px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--nav-inactive);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-nav a.active { font-weight: 800; color: var(--blue); }
+    .mobile-nav a:hover { color: var(--blue); }
+
+    /* ─── HERO ─── */
+    .about-hero {
+      position: relative;
+      min-height: 70vh;
+      background: var(--dark2);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 80px 60px;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(35,149,211,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(35,149,211,0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridShift 20s linear infinite;
+    }
+
+    @keyframes gridShift {
+      0%   { background-position: 0 0; }
+      100% { background-position: 60px 60px; }
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .orb-1 { width: 500px; height: 500px; background: rgba(35,149,211,0.18); top: -100px; right: -100px; }
+    .orb-2 { width: 300px; height: 300px; background: rgba(166,220,76,0.12); bottom: -50px; left: 20%; }
+
+    .about-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(35,149,211,0.15);
+      border: 1px solid rgba(35,149,211,0.3);
+      border-radius: 100px;
+      padding: 6px 18px;
+      margin-bottom: 28px;
+    }
+
+    .hero-eyebrow span {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    .hero-eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .about-hero-title {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(48px, 7vw, 96px);
+      line-height: 0.95;
+      color: var(--white);
+      margin-bottom: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .about-hero-title .accent      { color: var(--green); }
+    .about-hero-title .accent-blue { color: var(--blue); }
+
+    .about-hero-sub {
+      font-size: clamp(16px, 1.8vw, 20px);
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+
+    .hero-stats { display: flex; gap: 48px; flex-wrap: wrap; }
+
+    .hero-stat .s-num {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 36px;
+      color: var(--green);
+      line-height: 1;
+    }
+    .hero-stat .s-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-divider { width: 1px; height: 48px; background: rgba(255,255,255,0.15); align-self: center; }
+
+    /* ─── STORY ─── */
+    .story {
+      padding: 120px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+      position: relative;
+      background: var(--white);
+    }
+
+    .story::before {
+      content: '15';
+      position: absolute;
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 320px;
+      color: rgba(35,149,211,0.04);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.05em;
+    }
+
+    .story-text { position: relative; z-index: 1; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      border-left: 3px solid var(--green);
+      padding-left: 12px;
+      margin-bottom: 20px;
+    }
+
+    .story-heading {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(36px, 4vw, 56px);
+      color: var(--dark);
+      line-height: 1.05;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .story-heading em { font-style: normal; color: var(--blue); }
+
+    .story-body {
+      font-size: 17px;
+      color: #4a5568;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .story-visual { position: relative; z-index: 1; }
+
+    .story-card-stack { position: relative; height: 420px; }
+
+    .story-card {
+      position: absolute;
+      background: var(--white);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      border: 1px solid rgba(35,149,211,0.1);
+    }
+
+    .story-card-main {
+      width: 100%; top: 0; left: 0;
+      background: var(--dark2);
+      color: white;
+      z-index: 2;
+    }
+
+    .story-card-main .card-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .story-card-main h3 {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .story-card-main p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+    .story-card-float {
+      width: 220px;
+      bottom: 0; right: -20px;
+      z-index: 3;
+      background: var(--green);
+      text-align: center;
+      padding: 28px 24px;
+    }
+
+    .story-card-float .f-num {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 52px;
+      color: var(--dark2);
+      line-height: 1;
+    }
+
+    .story-card-float .f-label { font-size: 13px; font-weight: 800; color: rgba(0,0,0,0.6); margin-top: 6px; }
+
+    /* ─── SERVICES ─── */
+    .about-services {
+      padding: 100px 60px;
+      background: var(--dark2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-services::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(35,149,211,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(35,149,211,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .about-services-inner { position: relative; z-index: 1; }
+
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-bottom: 60px;
+    }
+
+    .services-title {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(36px, 4vw, 56px);
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .services-title span { color: var(--green); }
+
+    .services-desc { font-size: 16px; color: rgba(255,255,255,0.5); max-width: 320px; line-height: 1.7; }
+
+    .about-services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2px;
+    }
+
+    .service-tile {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: background 0.3s;
+    }
+
+    .service-tile::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+
+    .service-tile:hover { background: rgba(35,149,211,0.07); }
+    .service-tile:hover::before { transform: scaleX(1); }
+
+    .tile-num {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 56px;
+      color: rgba(255,255,255,0.05);
+      line-height: 1;
+      margin-bottom: 16px;
+      transition: color 0.3s;
+    }
+
+    .service-tile:hover .tile-num { color: rgba(35,149,211,0.2); }
+
+    .tile-icon {
+      width: 48px; height: 48px;
+      background: rgba(35,149,211,0.15);
+      border: 1px solid rgba(35,149,211,0.3);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .service-tile:hover .tile-icon { background: var(--blue); border-color: var(--blue); }
+
+    .tile-title { font-weight: 800; font-size: 17px; color: var(--white); margin-bottom: 10px; }
+    .tile-desc  { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.7; }
+
+    /* ─── MISSION / VISION ─── */
+    .mv-section {
+      padding: 120px 60px;
+      background: var(--off-white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mv-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--green) 100%);
+    }
+
+    .mv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .mv-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 56px 48px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(35,149,211,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .mv-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 32px 80px rgba(35,149,211,0.12);
+    }
+
+    .mv-card-mission { border-top: 4px solid var(--blue); }
+    .mv-card-vision  { border-top: 4px solid var(--green); }
+
+    .mv-bg-text {
+      position: absolute;
+      bottom: -20px; right: -10px;
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 120px;
+      color: rgba(0,0,0,0.03);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .mv-icon {
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .mv-card-mission .mv-icon { background: rgba(35,149,211,0.1); }
+    .mv-card-vision  .mv-icon { background: rgba(166,220,76,0.15); }
+
+    .mv-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .mv-card-mission .mv-label { color: var(--blue); }
+    .mv-card-vision  .mv-label { color: var(--green-dark); }
+
+    .mv-heading {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 3vw, 40px);
+      color: var(--dark);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .mv-text { font-size: 17px; color: #4a5568; line-height: 1.8; }
+
+    /* ─── WHY ─── */
+    .why-section {
+      padding: 120px 60px;
+      background: var(--white);
+    }
+
+    .why-header { text-align: center; margin-bottom: 72px; }
+
+    .why-title {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(36px, 4vw, 56px);
+      color: var(--dark);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .why-title span { color: var(--blue); }
+    .why-sub { font-size: 18px; color: var(--gray); max-width: 500px; margin: 0 auto; line-height: 1.7; }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      border: 2px solid rgba(35,149,211,0.1);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .pillar {
+      padding: 48px 36px;
+      background: var(--white);
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .pillar:hover { background: var(--off-white); }
+    .pillar + .pillar { border-left: 2px solid rgba(35,149,211,0.1); }
+
+    .pillar-num {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 72px;
+      line-height: 1;
+      color: rgba(35,149,211,0.08);
+      margin-bottom: 16px;
+      transition: color 0.3s;
+    }
+
+    .pillar:hover .pillar-num { color: rgba(35,149,211,0.15); }
+
+    .pillar-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .pillar h3 { font-weight: 800; font-size: 20px; color: var(--dark); margin-bottom: 12px; }
+    .pillar p  { font-size: 15px; color: var(--gray); line-height: 1.7; }
+
+    /* ─── CTA ─── */
+    .about-cta {
+      margin: 0 60px 80px;
+      background: var(--dark2);
+      border-radius: 28px;
+      padding: 80px 64px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(35,149,211,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(35,149,211,0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    .cta-orb {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: rgba(35,149,211,0.1);
+      filter: blur(80px);
+      right: -100px; top: -100px;
+      pointer-events: none;
+    }
+
+    .about-cta-content { position: relative; z-index: 1; }
+
+    .cta-tag {
+      display: inline-block;
+      background: rgba(166,220,76,0.15);
+      border: 1px solid rgba(166,220,76,0.3);
+      border-radius: 100px;
+      padding: 4px 16px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 20px;
+    }
+
+    .about-cta-title {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(32px, 4vw, 52px);
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .about-cta-title span { color: var(--green); }
+    .about-cta-desc { font-size: 17px; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    .about-cta-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-width: 220px;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      font-family: 'Mukta Malar', sans-serif;
+      font-weight: 800;
+      font-size: 17px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      font-family: 'Mukta Malar', sans-serif;
+      font-weight: 500;
+      font-size: 17px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: white; }
+
+    /* ─── REVEAL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left  { opacity: 0; transform: translateX(-40px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal-right { opacity: 0; transform: translateX(40px);  transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ─── FOOTER (from index.html) ─── */
+    footer {
+      background: #0d1117;
+      color: rgba(255,255,255,0.7);
+      padding: 64px 99px 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 48px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand .logo-text {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 28px;
+      color: white;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-weight: 800;
+      font-size: 15px;
+      color: white;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--blue); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      header { padding: 0 48px; }
+      .about-hero { padding: 60px 36px; }
+      .story { padding: 80px 36px; gap: 60px; }
+      .about-services, .mv-section, .why-section { padding-left: 36px; padding-right: 36px; }
+      .about-cta { margin: 0 36px 60px; padding: 56px 40px; }
+      footer { padding: 56px 48px 32px; }
+    }
+
+    @media (max-width: 900px) {
+      .story { grid-template-columns: 1fr; gap: 60px; }
+      .story-card-stack { height: 320px; }
+      .mv-grid { grid-template-columns: 1fr; }
+      .pillars { grid-template-columns: 1fr; }
+      .pillar + .pillar { border-left: none; border-top: 2px solid rgba(35,149,211,0.1); }
+      .about-cta { grid-template-columns: 1fr; }
+      .about-cta-actions { flex-direction: row; }
+    }
+
+    @media (max-width: 768px) {
+      header { height: 80px; padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-hero { padding: 48px 20px; min-height: auto; }
+      .hero-stats { gap: 28px; }
+      .hero-divider { display: none; }
+      .story, .mv-section, .why-section { padding: 64px 20px; }
+      .about-services { padding: 64px 20px; }
+      .about-cta { margin: 0 20px 48px; padding: 40px 24px; }
+      .about-cta-actions { flex-direction: column; }
+      footer { padding: 48px 24px 32px; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 8px; }
+    }
+
+    @media (max-width: 480px) {
+      .about-hero-title { font-size: 40px; }
+      .story-card-float { display: none; }
+      .mv-card { padding: 36px 28px; }
+      .pillar { padding: 36px 24px; }
+      footer { padding: 40px 20px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Mobile nav (from index.html) -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html" onclick="closeNav()">Home</a>
+  <a href="about-us.html" class="active" onclick="closeNav()">About Us</a>
+  <a href="services.html" onclick="closeNav()">Our Services</a>
+  <a href="contact-us.html" onclick="closeNav()">Contact Us</a>
+</div>
+
+<!-- ─── HEADER (from index.html) ─── -->
+<header>
+  <nav>
+    <a href="index.html" class="logo" aria-label="DAB Electronics home">
+      <img src="dab-logo.png" alt="DAB Electronics Logo" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about-us.html" class="active">About Us</a></li>
+      <li><a href="services.html">Our Services</a></li>
+      <li><a href="contact-us.html">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- ─── HERO ─── -->
+<section class="about-hero">
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="about-hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      <span>ABOUT DAB ELECTRONICS</span>
+    </div>
+    <h1 class="about-hero-title">
+      BUILT ON <span class="accent">TRUST.</span><br/>
+      <span class="accent-blue">DRIVEN BY</span> TECH.
+    </h1>
+    <p class="about-hero-sub">
+      For 15 years, DAB Electronics has been the backbone of secure, connected businesses
+      across Ghana and Canada delivering technology that simply works.
+    </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STORY ─── -->
+<section class="story">
+  <div class="story-text reveal-left">
+    <div class="section-tag">Who We Are</div>
+    <h2 class="story-heading">
+      A Forward-Thinking<br/><em>ICT Company</em><br/>Since 2011
+    </h2>
+    <p class="story-body">
+      At DAB Electronics, we've been helping businesses stay connected and secure for 15 years.
+      We specialize in CCTV Surveillance, Access Control, Network Infrastructure
+      and  Hardware & Software bringing you technology that's reliable, modern and easy to use.
+    </p>
+    <p class="story-body">
+      We know your world moves fast and technology should keep up. That's why we've built
+      a next-generation infrastructure to deliver products and services that fit seamlessly into
+      your busy life. Whether it's keeping your workplace secure or streamlining communications,
+      our goal is simple: make things work better for you without the hassle.
+    </p>
+  </div>
+  <div class="story-visual reveal-right">
+    <div class="story-card-stack">
+      <div class="story-card story-card-main">
+        <div class="card-icon">
+          <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <h3>End-to-End ICT Excellence</h3>
+        <p>From initial consultation to ongoing maintenance, we provide complete technology solutions that protect and power your business operations.</p>
+      </div>
+      <div class="story-card story-card-float">
+        <div class="f-num">15</div>
+        <div class="f-label">Years of Trusted Service</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MISSION & VISION ─── -->
+<section class="mv-section">
+  <div class="mv-grid">
+    <div class="mv-card mv-card-mission reveal-left">
+      <div class="mv-bg-text">M</div>
+      <div class="mv-icon">
+        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="#2395d3" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+      </div>
+      <div class="mv-label">Our Mission</div>
+      <h3 class="mv-heading">World-Class Support. Affordable Solutions.</h3>
+      <p class="mv-text">
+        To provide a world class support service and to offer our customers affordable IT solutions
+        for their business needs making enterprise-grade technology accessible to every organisation,
+        regardless of size.
+      </p>
+    </div>
+    <div class="mv-card mv-card-vision reveal-right">
+      <div class="mv-bg-text">V</div>
+      <div class="mv-icon">
+        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="#7aaa2a" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div class="mv-label">Our Vision</div>
+      <h3 class="mv-heading">The Trusted Leader Across Africa & Beyond.</h3>
+      <p class="mv-text">
+        To be recognized as the trusted leader in delivering innovative technology solutions
+        throughout Africa and beyond setting the standard for reliability, innovation,
+        and customer-first service across the continent.
+      </p>
+    </div>
+  </div>
+</section>
+  
+<!-- ─── FOOTER (from index.html) ─── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo" aria-label="DAB Electronics home" style="margin-bottom: 20px;">
+        <img src="dab-logo.png" alt="DAB Electronics Logo" />
+      </a>
+      <p>Smart security and integrated technology solutions built for modern businesses across Ghana and Canada.</p>
+      <div style="margin-top: 16px;">
+        <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); margin-bottom: 6px;">General Enquiries</p>
+        <a href="mailto:support@dabgh.com" style="color: rgba(255,255,255,0.6); font-size: 14px; text-decoration: none;">support@dabgh.com</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Our Services</a></li>
+        <li><a href="contact-us.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services.html">CCTV Surveillance</a></li>
+        <li><a href="services.html">Access Control</a></li>
+        <li><a href="services.html">Network Infrastructure</a></li>
+        <li><a href="services.html">Hardware & Software</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ghana Office</h4>
+      <ul>
+        <li><a href="tel:+233204239787">+233 (0)20 423 9787</a></li>
+        <li><a>Peeva House</a></li>
+        <li><a>Ogbojo, Greater Accra</a></li>
+        <li><a>P.O.Box AF43, Adenta-Accra-Ghana</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Canada Office</h4>
+      <ul>
+        <li><a href="tel:+13828892572">+1 (382)889 2572</a></li>
+        <li><a>32 Mowat Blvd Unit 4, Kitchener, ON, N2E 1X4</a></li>
+        <li><a>Ontario, Canada</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 DAB Electronics. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeNav() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 0.08}s`;
+    observer.observe(el);
+  });
+</script>
+</body>
+
+<!-- Primary SEO Meta Tags -->
+<meta name="description" content="DAB Electronics provides smart security, CCTV, access control, and network solutions for businesses across Ghana and Canada. 15+ years of trusted service." />
+<meta name="keywords" content="CCTV Ghana, security systems Ghana, access control, network infrastructure, IT support Ghana, DAB Electronics" />
+<meta name="author" content="DAB Electronics" />
+
+<!-- Open Graph (for Facebook, WhatsApp, LinkedIn previews) -->
+<meta property="og:title" content="DAB Electronics – Smart Security & ICT Solutions" />
+<meta property="og:description" content="Advanced CCTV, access control, networking and integrated technology solutions designed to protect and power your operations." />
+<meta property="og:image" content="dab-logo.png" />
+<meta property="og:url" content="https://www.dabgh.com" />
+<meta property="og:type" content="website" />
+
+<!-- Twitter/X Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="DAB Electronics – Smart Security & ICT Solutions" />
+<meta name="twitter:description" content="Advanced CCTV, access control, networking and ICT solutions for businesses in Ghana and Canada." />
+
+</html>

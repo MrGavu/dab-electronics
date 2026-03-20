@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us – DAB Electronics</title>
+  <link rel="icon" type="image/png" href="dab-favicon.png" />
+  <script src="https://cdn.jsdelivr.net/npm/@formspree/js@latest/dist/formspree.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;800&family=Roboto+Condensed:wght@900&family=Mukta+Malar:wght@500;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2395d3;
+      --blue-dark: #1a6fa0;
+      --blue-deep: #0d4a6e;
+      --green: #a6dc4c;
+      --green-dark: #7aaa2a;
+      --white: #ffffff;
+      --off-white: #f7fafd;
+      --gray: #898989;
+      --gray-light: #c8c8c8;
+      --nav-inactive: #a7a7a7;
+      --dark: #0a0f1a;
+      --dark2: #111827;
+      --border: #e8f4fd;
+      --input-bg: #f7fafd;
+      --error: #e53e3e;
+      --success: #38a169;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--white);
+      overflow-x: hidden;
+      color: var(--dark);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── NAVBAR ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      height: 114px;
+      display: flex;
+      align-items: center;
+      padding: 0 99px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    }
+
+    nav {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo img { height: 56px; width: auto; }
+
+    .nav-links {
+      display: flex;
+      gap: 42px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 22px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      color: var(--nav-inactive);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links a.active { font-weight: 800; color: var(--blue); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 3px;
+      background: var(--blue);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 100px 30px 40px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--nav-inactive);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-nav a.active { font-weight: 800; color: var(--blue); }
+    .mobile-nav a:hover { color: var(--blue); }
+
+    /* ─── HERO ─── */
+    .contact-hero {
+      position: relative;
+      min-height: 52vh;
+      background: var(--dark2);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 80px 99px;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(35,149,211,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(35,149,211,0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridShift 20s linear infinite;
+    }
+
+    @keyframes gridShift {
+      0%   { background-position: 0 0; }
+      100% { background-position: 60px 60px; }
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .orb-1 { width: 500px; height: 500px; background: rgba(35,149,211,0.18); top: -100px; right: -100px; }
+    .orb-2 { width: 280px; height: 280px; background: rgba(166,220,76,0.1); bottom: -60px; left: 10%; }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(35,149,211,0.15);
+      border: 1px solid rgba(35,149,211,0.3);
+      border-radius: 100px;
+      padding: 6px 18px;
+      margin-bottom: 28px;
+    }
+
+    .hero-eyebrow span {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .hero-title {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(44px, 6.5vw, 88px);
+      line-height: 0.95;
+      color: var(--white);
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title .accent { color: var(--green); }
+    .hero-title .accent-blue { color: var(--blue); }
+
+    .hero-sub {
+      font-size: clamp(16px, 1.8vw, 19px);
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    /* ─── MAIN CONTENT ─── */
+    .contact-main {
+      padding: 100px 99px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: stretch;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ─── CONTACT FORM ─── */
+
+    .section-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      border-left: 3px solid var(--green);
+      padding-left: 12px;
+      margin-bottom: 16px;
+    }
+
+    .form-side h2 {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(30px, 3.5vw, 46px);
+      color: var(--dark);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .form-side h2 span { color: var(--blue); }
+
+    .form-side > p {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 15px;
+      font-family: 'Roboto', sans-serif;
+      color: var(--dark);
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      outline: none;
+      resize: none;
+      appearance: none;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder { color: var(--gray-light); }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: var(--blue);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(35,149,211,0.12);
+    }
+
+    .field.has-error input,
+    .field.has-error textarea {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(229,62,62,0.1);
+    }
+
+    .field-error {
+      font-size: 12px;
+      color: var(--error);
+      font-weight: 600;
+      display: none;
+    }
+
+    .field.has-error .field-error { display: block; }
+
+    .field textarea { min-height: 140px; line-height: 1.6; }
+
+    .char-count {
+      font-size: 12px;
+      color: var(--gray-light);
+      text-align: right;
+      margin-top: -4px;
+    }
+
+    .btn-submit {
+      background: var(--blue);
+      color: var(--white);
+      font-family: 'Mukta Malar', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      padding: 18px 40px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      background: var(--blue-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(35,149,211,0.35);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .btn-submit .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    .btn-submit.loading .spinner { display: block; }
+    .btn-submit.loading .btn-text { display: none; }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Success toast */
+    .toast {
+      display: none;
+      align-items: flex-start;
+      gap: 14px;
+      background: #f0fff4;
+      border: 1.5px solid #68d391;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-top: 8px;
+    }
+    .toast.visible { display: flex; }
+    .toast-icon {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--success);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .toast-text h4 { font-size: 15px; font-weight: 800; color: #276749; margin-bottom: 3px; }
+    .toast-text p  { font-size: 14px; color: #38a169; line-height: 1.5; }
+
+    /* ─── INFO SIDE ─── */
+    .info-side {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: 100%;
+    }
+
+    .info-header { margin-bottom: 0px; }
+
+    .info-header h2 {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 3vw, 42px);
+      color: var(--dark);
+      letter-spacing: -0.02em;
+        margin-bottom: 6px;
+      line-height: 1.05;
+    }
+    .info-header h2 span { color: var(--blue); }
+    .info-header p { font-size: 16px; color: var(--gray); line-height: 1.7; }
+
+    .info-card {
+        background: var(--off-white);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 22px 26px;
+        position: relative;
+        overflow: hidden;
+        transition: box-shadow 0.25s, transform 0.2s;
+        flex: 1;
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--blue), var(--green));
+      border-radius: 4px 0 0 4px;
+    }
+
+    .info-card:hover {
+      box-shadow: 0 12px 40px rgba(35,149,211,0.1);
+      transform: translateY(-3px);
+    }
+
+    .info-card-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .info-icon {
+      width: 48px; height: 48px;
+      background: rgba(35,149,211,0.1);
+      border: 1px solid rgba(35,149,211,0.2);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .info-card-head h3 {
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--dark);
+    }
+
+    .info-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .info-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: #4a5568;
+      line-height: 1.6;
+    }
+
+    .info-line-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .info-line a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .info-line a:hover { text-decoration: underline; }
+
+    /* Email card */
+    .email-card {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      border-radius: 20px;
+      padding: 22px 26px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .email-card-icon {
+      width: 56px; height: 56px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .email-card-text h3 {
+      font-weight: 800;
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+
+    .email-card-text a {
+      font-weight: 800;
+      font-size: 18px;
+      color: white;
+      text-decoration: none;
+    }
+    .email-card-text a:hover { text-decoration: underline; }
+
+    /* Hours card */
+    .hours-card {
+      background: var(--dark2);
+      border-radius: 20px;
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,0.06);
+      flex: 1;
+    }
+
+    .hours-card-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .hours-icon {
+      width: 48px; height: 48px;
+      background: rgba(166,220,76,0.15);
+      border: 1px solid rgba(166,220,76,0.3);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .hours-card-head h3 {
+      font-weight: 800;
+      font-size: 18px;
+      color: white;
+    }
+
+    .hours-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .hours-row:last-child { border-bottom: none; }
+
+    .hours-row .day { color: rgba(255,255,255,0.5); }
+    .hours-row .time { color: white; font-weight: 600; }
+    .hours-row .badge-open {
+      background: rgba(166,220,76,0.2);
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 100px;
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── MAP PLACEHOLDER ─── */
+    .map-section {
+      padding: 0 99px 100px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .map-container {
+      background: var(--off-white);
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .map-label {
+      position: absolute;
+      top: 20px; left: 20px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--dark);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .map-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+
+    .map-inner {
+      width: 100%;
+      height: 360px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #e8f4fd 0%, #f0fff4 100%);
+    }
+
+    .map-inner iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #0d1117;
+      color: rgba(255,255,255,0.7);
+      padding: 64px 99px 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 48px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 280px; }
+
+    .footer-col h4 {
+      font-weight: 800;
+      font-size: 15px;
+      color: white;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--blue); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    /* ─── REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left  { opacity: 0; transform: translateX(-32px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal-right { opacity: 0; transform: translateX(32px);  transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      header { padding: 0 48px; }
+      .contact-hero { padding: 60px 48px; }
+      .contact-main { padding: 80px 48px; gap: 56px; }
+      .map-section { padding: 0 48px 80px; }
+      footer { padding: 56px 48px 32px; }
+    }
+
+    @media (max-width: 900px) {
+      .contact-main { grid-template-columns: 1fr; gap: 60px; }
+    }
+
+    @media (max-width: 768px) {
+      header { height: 80px; padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .contact-hero { padding: 48px 20px; min-height: auto; }
+      .contact-main { padding: 56px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .map-section { padding: 0 24px 56px; }
+      footer { padding: 48px 24px 32px; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .contact-hero { padding: 40px 20px; }
+      .contact-main { padding: 48px 20px; }
+      .email-card { flex-direction: column; align-items: flex-start; }
+      .map-section { padding: 0 20px 48px; }
+      footer { padding: 40px 20px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html" onclick="closeNav()">Home</a>
+  <a href="about-us.html" onclick="closeNav()">About Us</a>
+  <a href="services.html" onclick="closeNav()">Our Services</a>
+  <a href="contact.html" class="active" onclick="closeNav()">Contact Us</a>
+</div>
+
+<!-- ─── HEADER ─── -->
+<header>
+  <nav>
+    <a href="index.html" class="logo" aria-label="DAB Electronics home">
+      <img src="dab-logo.png" alt="DAB Electronics Logo" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about-us.html">About Us</a></li>
+      <li><a href="services.html">Our Services</a></li>
+      <li><a href="contact.html" class="active">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- ─── HERO ─── -->
+<section class="contact-hero">
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-dot"></div>
+      <span>CONTACT DAB ELECTRONICS</span>
+    </div>
+    <h1 class="hero-title">
+      LET'S <span class="accent">TALK</span><br/>
+      <span class="accent-blue">ABOUT</span> YOUR<br/>
+      SECURITY.
+    </h1>
+    <p class="hero-sub">
+      Need a quick quote, a site survey or just have a question? </br>
+      Our team is ready to help you find the right solution for your business.
+    </p>
+  </div>
+</section>
+
+<!-- ─── MAIN ─── -->
+<section class="contact-main">
+
+  <!-- FORM -->
+  <div class="form-side reveal-left">
+    <div class="section-tag">Send a Message</div>
+    <h2>We'd Love to <span>Hear From You</span></h2>
+    <p>Fill out the form below and our team will get back to you within one business day.</p>
+
+    <form class="contact-form" id="contactForm" novalidate
+      action="https://formspree.io/f/xvzwyojl"
+      method="POST">
+      <div class="form-row">
+        <div class="field" id="field-name">
+          <label for="fullName">Full Name <span style="color:var(--error)">*</span></label>
+          <input type="text" id="fullName" name="fullName" placeholder="John Mensah" autocomplete="name" />
+          <span class="field-error">Please enter your full name.</span>
+        </div>
+        <div class="field" id="field-email">
+          <label for="email">Email Address <span style="color:var(--error)">*</span></label>
+          <input type="email" id="email" name="email" placeholder="john@company.com" autocomplete="email" />
+          <span class="field-error">Please enter a valid email address.</span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field" id="field-phone">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="+233 20 000 0000" autocomplete="tel" />
+          <span class="field-error">Please enter a valid phone number.</span>
+        </div>
+        <div class="field">
+          <label for="service">Service of Interest</label>
+          <select id="service" name="service">
+            <option value="" disabled selected>Select a service…</option>
+            <option value="cctv">CCTV Surveillance</option>
+            <option value="access">Access Control</option>
+            <option value="network">Network Infrastructure</option>
+            <option value="hardware">Hardware & Software</option>
+            <option value="other">Other / General Enquiry</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field" id="field-message">
+        <label for="message">Message <span style="color:var(--error)">*</span></label>
+        <textarea
+          id="message"
+          name="message"
+          placeholder="Tell us about your needs — site size, number of cameras, current setup, etc."
+          maxlength="1200" style= "height: 220px";
+        ></textarea>
+        <div class="char-count"><span id="charCount">0</span> / 1200</div>
+        <span class="field-error">Please enter a message (at least 20 characters).</span>
+        
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span class="btn-text">Send Message →</span>
+        <div class="spinner"></div>
+      </button>
+
+      <div class="toast" id="successToast">
+        <div class="toast-icon">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>
+        <div class="toast-text">
+          <h4>Message sent successfully!</h4>
+          <p>Thank you for reaching out. We'll be in touch within one business day.</p>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- INFO -->
+  <div class="info-side reveal-right">
+    <div class="info-header">
+      <div class="section-tag">Contact Information</div>
+      <h2>Find Us <span>Here</span></h2>
+      <p>Reach out through any channel — we're available across both our Ghana and Canada offices.</p>
+    </div>
+
+    <!-- Email -->
+    <div class="email-card">
+      <div class="email-card-icon">
+        <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+      </div>
+      <div class="email-card-text">
+        <h3>General Enquiries</h3>
+        <a href="mailto:support@dabgh.com">support@dabgh.com</a>
+      </div>
+    </div>
+
+    <!-- Ghana Office -->
+    <div class="info-card">
+      <div class="info-card-head">
+        <div class="info-icon">
+          <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="var(--blue)" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <h3>Ghana Office</h3>
+      </div>
+      <div class="info-detail">
+        <div class="info-line">
+          <div class="info-line-dot"></div>
+          <span>Peeva House, Ogbojo, Greater Accra</span>
+        </div>
+        <div class="info-line">
+          <div class="info-line-dot"></div>
+          <span>P.O.Box AF43, Adenta-Accra, Ghana</span>
+        </div>
+        <div class="info-line">
+          <div class="info-line-dot"></div>
+          <a href="tel:+233204239787">+233 (0)20 423 9787</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Canada Office -->
+    <div class="info-card">
+      <div class="info-card-head">
+        <div class="info-icon">
+          <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="var(--blue)" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <h3>Canada Office</h3>
+      </div>
+      <div class="info-detail">
+        <div class="info-line">
+          <div class="info-line-dot"></div>
+          <span>32 Mowat Blvd Unit 4, Kitchener, ON, N2E 1X4</span>
+        </div>
+        <div class="info-line">
+          <div class="info-line-dot"></div>
+          <span>Ontario, Canada</span>
+        </div>
+        <div class="info-line">
+          <div class="info-line-dot"></div>
+          <a href="tel:+13828892572">+1 (382)889 2572</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="logo" aria-label="DAB Electronics home" style="margin-bottom: 20px;">
+        <img src="dab-logo.png" alt="DAB Electronics Logo" />
+      </a>
+      <p>Smart security and integrated technology solutions built for modern businesses across Ghana and Canada.</p>
+      <div style="margin-top: 16px;">
+        <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); margin-bottom: 6px;">General Enquiries</p>
+        <a href="mailto:support@dabgh.com" style="color: rgba(255,255,255,0.6); font-size: 14px; text-decoration: none;">support@dabgh.com</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about-us.html">About Us</a></li>
+        <li><a href="services.html">Our Services</a></li>
+        <li><a href="contact-us.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services.html">CCTV Surveillance</a></li>
+        <li><a href="services.html">Access Control</a></li>
+        <li><a href="services.html">Network Infrastructure</a></li>
+        <li><a href="services.html">Hardware & Software</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ghana Office</h4>
+      <ul>
+        <li><a href="tel:+233204239787">+233 (0)20 423 9787</a></li>
+        <li><a>Peeva House</a></li>
+        <li><a>Ogbojo, Greater Accra</a></li>
+        <li><a>P.O.Box AF43, Adenta-Accra-Ghana</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Canada Office</h4>
+      <ul>
+        <li><a href="tel:+13828892572">+1 (382)889 2572</a></li>
+        <li><a>32 Mowat Blvd Unit 4, Kitchener, ON, N2E 1X4</a></li>
+        <li><a>Ontario, Canada</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 DAB Electronics. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<script>
+  // ─── NAV ───
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  });
+
+  function closeNav() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ─── REVEAL ───
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 3) * 0.1}s`;
+    revealObserver.observe(el);
+  });
+
+  // ─── CHAR COUNT ───
+  const msgArea = document.getElementById('message');
+  const charCount = document.getElementById('charCount');
+  msgArea.addEventListener('input', () => {
+    charCount.textContent = msgArea.value.length;
+  });
+
+  // ─── FORM VALIDATION & SUBMIT ───
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const toast = document.getElementById('successToast');
+
+  function setError(fieldId, show) {
+    const el = document.getElementById(fieldId);
+    if (!el) return;
+    el.classList.toggle('has-error', show);
+  }
+
+  function validateEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name    = document.getElementById('fullName').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    let valid = true;
+
+    if (name.length < 2)       { setError('field-name', true);    valid = false; } else { setError('field-name', false); }
+    if (!validateEmail(email)) { setError('field-email', true);   valid = false; } else { setError('field-email', false); }
+    if (message.length < 20)   { setError('field-message', true); valid = false; } else { setError('field-message', false); }
+
+    if (phone && !/^[\d\s\+\-\(\)]{7,20}$/.test(phone)) {
+      setError('field-phone', true); valid = false;
+    } else {
+      setError('field-phone', false);
+    }
+
+    if (!valid) return;
+
+    // Send via Formspree
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+
+    const formData = new FormData(form);
+
+    try {
+    const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+        toast.classList.add('visible');
+        form.reset();
+        charCount.textContent = '0';
+        setTimeout(() => toast.classList.remove('visible'), 8000);
+    } else {
+        const data = await response.json();
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+        alert(data.error || 'Something went wrong. Please try again.');
+    }
+    } catch (error) {
+    submitBtn.disabled = false;
+    submitBtn.classList.remove('loading');
+    alert('Network error. Please check your connection and try again.');
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Services – DAB Electronics</title>
+  <link rel="icon" type="image/png" href="dab-favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;800&family=Roboto+Condensed:wght@900&family=Mukta+Malar:wght@500;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2395d3;
+      --blue-dark: #1a6fa0;
+      --blue-deep: #0d4a6e;
+      --green: #a6dc4c;
+      --green-dark: #7aaa2a;
+      --white: #ffffff;
+      --off-white: #f7fafd;
+      --gray: #898989;
+      --nav-inactive: #a7a7a7;
+      --dark: #0a0f1a;
+      --dark2: #111827;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--white);
+      overflow-x: hidden;
+      color: var(--dark);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── NAVBAR ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      height: 114px;
+      display: flex;
+      align-items: center;
+      padding: 0 99px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    }
+
+    nav {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo img { height: 56px; width: auto; }
+
+    .nav-links {
+      display: flex;
+      gap: 42px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 22px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      color: var(--nav-inactive);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links a.active { font-weight: 800; color: var(--blue); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 3px;
+      background: var(--blue);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 100px 30px 40px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--nav-inactive);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-nav a.active { font-weight: 800; color: var(--blue); }
+    .mobile-nav a:hover { color: var(--blue); }
+
+    /* ─── HERO ─── */
+    .services-hero {
+      position: relative;
+      min-height: 60vh;
+      background: var(--dark2);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 80px 60px;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(35,149,211,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(35,149,211,0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridShift 20s linear infinite;
+    }
+
+    @keyframes gridShift {
+      0%   { background-position: 0 0; }
+      100% { background-position: 60px 60px; }
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .orb-1 { width: 500px; height: 500px; background: rgba(35,149,211,0.18); top: -100px; right: -100px; }
+    .orb-2 { width: 300px; height: 300px; background: rgba(166,220,76,0.12); bottom: -50px; left: 20%; }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(35,149,211,0.15);
+      border: 1px solid rgba(35,149,211,0.3);
+      border-radius: 100px;
+      padding: 6px 18px;
+      margin-bottom: 28px;
+    }
+
+    .hero-eyebrow span {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .hero-title {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(48px, 7vw, 92px);
+      line-height: 0.95;
+      color: var(--white);
+      margin-bottom: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title .accent { color: var(--green); }
+    .hero-title .accent-blue { color: var(--blue); }
+
+    .hero-sub {
+      font-size: clamp(16px, 1.8vw, 20px);
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      max-width: 580px;
+      margin-bottom: 40px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      font-family: 'Mukta Malar', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      font-family: 'Mukta Malar', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.6); color: white; }
+
+    /* ─── INTRO STRIP ─── */
+    .intro-strip {
+      background: var(--off-white);
+      border-bottom: 1px solid #e8f4fd;
+      padding: 56px 99px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .intro-strip-text { max-width: 560px; }
+    .intro-strip-text h2 {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(26px, 3vw, 36px);
+      color: var(--dark);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .intro-strip-text p { font-size: 16px; color: var(--gray); line-height: 1.7; }
+
+    .intro-strip-stats {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .strip-stat .s-num {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 40px;
+      color: var(--blue);
+      line-height: 1;
+    }
+    .strip-stat .s-label {
+      font-size: 13px;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    /* ─── SECTION TAG ─── */
+    .section-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      border-left: 3px solid var(--green);
+      padding-left: 12px;
+      margin-bottom: 16px;
+    }
+
+    /* ─── FEATURED SERVICES (big cards) ─── */
+    .featured-services {
+      padding: 100px 99px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .featured-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    .featured-header h2 {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(32px, 4vw, 54px);
+      color: var(--dark);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .featured-header h2 span { color: var(--blue); }
+    .featured-header p { font-size: 18px; color: var(--gray); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    .services-grid-main {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .svc-card {
+      background: var(--white);
+      border: 1px solid #e8f4fd;
+      border-radius: 24px;
+      padding: 48px 44px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s, transform 0.25s, border-color 0.3s;
+      cursor: default;
+    }
+
+    .svc-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+
+    .svc-card:hover {
+      box-shadow: 0 24px 64px rgba(35,149,211,0.13);
+      transform: translateY(-6px);
+      border-color: rgba(35,149,211,0.25);
+    }
+    .svc-card:hover::before { transform: scaleX(1); }
+
+    .svc-card-num {
+      position: absolute;
+      top: 32px; right: 36px;
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 72px;
+      color: rgba(35,149,211,0.06);
+      line-height: 1;
+      transition: color 0.3s;
+    }
+    .svc-card:hover .svc-card-num { color: rgba(35,149,211,0.12); }
+
+    .svc-icon {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, rgba(35,149,211,0.12), rgba(35,149,211,0.04));
+      border: 1px solid rgba(35,149,211,0.2);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .svc-card:hover .svc-icon {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      border-color: var(--blue);
+    }
+    .svc-card:hover .svc-icon svg { stroke: white; }
+
+    .svc-icon svg { stroke: var(--blue); transition: stroke 0.3s; }
+
+    .svc-card h3 {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      color: var(--dark);
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .svc-card > p {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.75;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .svc-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .svc-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #4a5568;
+    }
+
+    .svc-features li::before {
+      content: '';
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: rgba(166,220,76,0.2);
+      border: 1px solid rgba(166,220,76,0.4);
+      flex-shrink: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237aaa2a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* ─── DARK SERVICES STRIP ─── */
+    .services-dark {
+      background: var(--dark2);
+      padding: 100px 99px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .services-dark::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(35,149,211,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(35,149,211,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .services-dark-inner { position: relative; z-index: 1; }
+
+    .dark-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-bottom: 60px;
+    }
+
+    .dark-header-text h2 {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(32px, 4vw, 52px);
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .dark-header-text h2 span { color: var(--green); }
+    .dark-header-text p { font-size: 16px; color: rgba(255,255,255,0.45); max-width: 360px; line-height: 1.7; }
+
+    .additional-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .add-tile {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 44px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .add-tile::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+
+    .add-tile:hover { background: rgba(35,149,211,0.06); }
+    .add-tile:hover::after { transform: scaleX(1); }
+
+    .add-tile-num {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 60px;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .add-tile-icon {
+      width: 48px; height: 48px;
+      background: rgba(35,149,211,0.12);
+      border: 1px solid rgba(35,149,211,0.25);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .add-tile:hover .add-tile-icon { background: var(--blue); border-color: var(--blue); }
+
+    .add-tile h3 { font-weight: 800; font-size: 17px; color: var(--white); margin-bottom: 10px; }
+    .add-tile p  { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.7; }
+
+    /* ─── PROCESS ─── */
+    .process {
+      padding: 100px 99px;
+      background: var(--off-white);
+      position: relative;
+      z-index: 2;
+    }
+
+    .process::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+    }
+
+    .process-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    .process-header h2 {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(32px, 4vw, 52px);
+      color: var(--dark);
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .process-header h2 span { color: var(--blue); }
+    .process-header p { font-size: 18px; color: var(--gray); max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: calc(12.5%);
+      right: calc(12.5%);
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      z-index: 0;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-num {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 24px;
+      color: var(--blue);
+      margin-bottom: 24px;
+      box-shadow: 0 0 0 6px var(--off-white);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .step:hover .step-num { background: var(--blue); color: white; }
+
+    .step h3 {
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .step p { font-size: 14px; color: var(--gray); line-height: 1.65; }
+
+    /* ─── CTA BANNER ─── */
+    .cta-banner {
+      margin: 0 99px 80px;
+      background: linear-gradient(100deg, var(--blue) 0%, var(--blue-dark) 100%);
+      border-radius: 24px;
+      padding: 72px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .cta-banner::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 40%;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .cta-text { position: relative; z-index: 1; }
+
+    .cta-text h2 {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 3.5vw, 46px);
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .cta-text p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+      max-width: 460px;
+    }
+
+    .cta-actions {
+      position: relative; z-index: 1;
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--blue);
+      font-family: 'Mukta Malar', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+
+    .btn-outline-white {
+      background: transparent;
+      color: white;
+      font-family: 'Mukta Malar', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.5);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #0d1117;
+      color: rgba(255,255,255,0.7);
+      padding: 64px 99px 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 48px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 280px; }
+
+    .footer-col h4 {
+      font-weight: 800;
+      font-size: 15px;
+      color: white;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--blue); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    /* ─── REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      header { padding: 0 48px; }
+      .services-hero { padding: 60px 36px; }
+      .intro-strip, .featured-services, .services-dark, .process { padding-left: 48px; padding-right: 48px; }
+      .cta-banner { margin: 0 48px 60px; }
+      footer { padding: 56px 48px 32px; }
+      .services-grid-main { grid-template-columns: 1fr; }
+      .additional-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      header { height: 80px; padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .services-hero { padding: 48px 20px; min-height: auto; }
+      .intro-strip { padding: 40px 24px; }
+      .intro-strip-stats { gap: 28px; }
+      .featured-services, .services-dark, .process { padding: 64px 24px; }
+      .services-grid-main { grid-template-columns: 1fr; gap: 20px; }
+      .additional-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .steps::before { display: none; }
+      .cta-banner { margin: 0 24px 48px; padding: 48px 28px; flex-direction: column; text-align: center; }
+      .cta-actions { justify-content: center; }
+      footer { padding: 48px 24px 32px; }
+      .footer-top { flex-direction: column; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .dark-header { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .steps { grid-template-columns: 1fr; }
+      .svc-card { padding: 36px 28px; }
+      .cta-banner { padding: 40px 20px; }
+      footer { padding: 40px 20px 28px; }
+      .hero-cta { flex-direction: column; }
+      .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html" onclick="closeNav()">Home</a>
+  <a href="about-us.html" onclick="closeNav()">About Us</a>
+  <a href="services.html" class="active" onclick="closeNav()">Our Services</a>
+  <a href="contact-us.html" onclick="closeNav()">Contact Us</a>
+</div>
+
+<!-- ─── HEADER ─── -->
+<header>
+  <nav>
+    <a href="index.html" class="logo" aria-label="DAB Electronics home">
+      <img src="dab-logo.png" alt="DAB Electronics Logo" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about-us.html">About Us</a></li>
+      <li><a href="services.html" class="active">Our Services</a></li>
+      <li><a href="contact-us.html">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- ─── MAIN SERVICES ─── -->
+<section class="featured-services" id="services-main">
+  <div class="featured-header">
+    <div class="section-tag">Core Services</div>
+    <h2>Our <span>Core Offerings</span></h2>
+    <p>Comprehensive technology solutions designed to protect, connect and power your business operations.</p>
+  </div>
+
+  <div class="services-grid-main">
+
+    <!-- CCTV -->
+    <div class="svc-card reveal">
+      <div class="svc-card-num">01</div>
+      <div class="svc-icon">
+        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+        </svg>
+      </div>
+      <h3>CCTV Surveillance</h3>
+      <p>High-definition camera systems with remote monitoring, night vision and AI-powered motion detection for 24/7 protection of your premises both indoors and outdoors.</p>
+      <ul class="svc-features">
+        <li>HD & 4K resolution cameras</li>
+        <li>AI-powered motion detection</li>
+        <li>Night vision & low-light performance</li>
+        <li>Remote monitoring via mobile app</li>
+        <li>Secure cloud & local storage</li>
+      </ul>
+    </div>
+
+    <!-- Access Control -->
+    <div class="svc-card reveal">
+      <div class="svc-card-num">02</div>
+      <div class="svc-icon">
+        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+      </div>
+      <h3>Access Control</h3>
+      <p>Biometric, card-based, and smart lock systems that manage and restrict entry with precision keeping your premises secure and your access logs fully auditable.</p>
+      <ul class="svc-features">
+        <li>Fingerprint & facial recognition</li>
+        <li>Smart card & PIN systems</li>
+        <li>Multi-zone access management</li>
+        <li>Time-based access restrictions</li>
+        <li>Full audit trails & reporting</li>
+      </ul>
+    </div>
+
+    <!-- Network Infrastructure -->
+    <div class="svc-card reveal">
+      <div class="svc-card-num">03</div>
+      <div class="svc-icon">
+        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+        </svg>
+      </div>
+      <h3>Network Infrastructure</h3>
+      <p>Structured cabling, enterprise Wi-Fi deployment and robust networking solutions that keep your business reliably connected fast, secure and scalable.</p>
+      <ul class="svc-features">
+        <li>Structured cabling & patch panels</li>
+        <li>Enterprise Wi-Fi deployment</li>
+        <li>LAN/WAN configuration</li>
+        <li>Network security & firewalls</li>
+        <li>VPN & remote access setup</li>
+      </ul>
+    </div>
+
+    <!-- Hardware & Software -->
+    <div class="svc-card reveal">
+      <div class="svc-card-num">04</div>
+      <div class="svc-icon">
+        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      </div>
+      <h3>Hardware & Software</h3>
+      <p>End-to-end hardware procurement, software licensing, installation, upgrades and ongoing support keeping your systems running smoothly without disruption.</p>
+      <ul class="svc-features">
+        <li>Hardware procurement & setup</li>
+        <li>Software installation & licensing</li>
+        <li>System upgrades & migrations</li>
+        <li>Preventive maintenance plans</li>
+        <li>Remote & on-site IT support</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="logo" aria-label="DAB Electronics home" style="margin-bottom: 20px;">
+        <img src="dab-logo.png" alt="DAB Electronics Logo" />
+      </a>
+      <p>Smart security and integrated technology solutions built for modern businesses across Ghana and Canada.</p>
+      <div style="margin-top: 16px;">
+        <p style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); margin-bottom: 6px;">General Enquiries</p>
+        <a href="mailto:support@dabgh.com" style="color: rgba(255,255,255,0.6); font-size: 14px; text-decoration: none;">support@dabgh.com</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about-us.html">About Us</a></li>
+        <li><a href="services.html">Our Services</a></li>
+        <li><a href="contact-us.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services.html">CCTV Surveillance</a></li>
+        <li><a href="services.html">Access Control</a></li>
+        <li><a href="services.html">Network Infrastructure</a></li>
+        <li><a href="services.html">Hardware & Software</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ghana Office</h4>
+      <ul>
+        <li><a href="tel:+233204239787">+233 (0)20 423 9787</a></li>
+        <li><a>Peeva House</a></li>
+        <li><a>Ogbojo, Greater Accra</a></li>
+        <li><a>P.O.Box AF43, Adenta-Accra-Ghana</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Canada Office</h4>
+      <ul>
+        <li><a href="tel:+13828892572">+1 (382)889 2572</a></li>
+        <li><a>32 Mowat Blvd Unit 4, Kitchener, ON, N2E 1X4</a></li>
+        <li><a>Ontario, Canada</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 DAB Electronics. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  });
+
+  function closeNav() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 0.1}s`;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
